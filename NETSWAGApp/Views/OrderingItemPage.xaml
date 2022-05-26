@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NETSWAGApp.Views.OrderingItemPage"
+             Title="{Binding Name}"
+             BackgroundImageSource="https://wallpapercave.com/wp/wp5353971.jpg">
+
+
+    <StackLayout Margin="20"
+                 VerticalOptions="StartAndExpand">
+
+
+        <Label Text=".NET SWAG ordering App"
+               TextColor="WhiteSmoke"
+               FontAttributes="Bold"
+               FontSize="30"/>
+
+
+        <Label Text="Name"
+               TextColor="Black"
+               FontAttributes="Bold"
+               FontSize="20"/>
+        <Entry Text="{Binding Name}" />
+
+        <Label Text="Gender" 
+               TextColor="Black"
+               FontAttributes="Bold"
+               FontSize="20"/>
+        <Entry Text="{Binding Gender}" />
+
+        <Label Text="T-Shirt Size"
+               TextColor="black"
+               FontAttributes="Bold"
+               FontSize="20"/>
+        <StackLayout Orientation="Horizontal">
+            <CheckBox x:Name="checkbox"/>
+            <Label Text="Small"
+                   TextColor="WhiteSmoke"
+                   FontAttributes="Bold">
+                <Label.Triggers>
+                    <DataTrigger  TargetType="Label"
+                                  Binding="{Binding Source={x:Reference checkbox}, Path= IsChecked}"
+                                  Value="true">
+                        <Setter Property="FontAttributes"
+                                Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <CheckBox x:Name="checkboxm"/>
+            <Label Text="Medium"
+                   TextColor="WhiteSmoke"
+                   FontAttributes="Bold">
+                <Label.Triggers>
+                    <DataTrigger  TargetType="Label"
+                              Binding="{Binding Source={x:Reference checkboxm}, Path= IsChecked}"
+                              Value="true">
+                        <Setter Property="FontAttributes"
+                            Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <CheckBox x:Name="checkboxl"/>
+            <Label Text="Large"
+                   TextColor="WhiteSmoke"
+                   FontAttributes="Bold">
+                <Label.Triggers>
+                    <DataTrigger  TargetType="Label"
+                              Binding="{Binding Source={x:Reference checkboxl}, Path= IsChecked}"
+                              Value="true">
+                        <Setter Property="FontAttributes"
+                            Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <CheckBox x:Name="checkboxXL"/>
+            <Label Text="XLarge"
+                   TextColor="WhiteSmoke"
+                   FontAttributes="Bold">
+                <Label.Triggers>
+                    <DataTrigger  TargetType="Label"
+                                  Binding="{Binding Source={x:Reference checkboxXL},
+                                  Path= IsChecked}"
+                                  Value="true">
+                        <Setter Property="FontAttributes"
+                                Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+        </StackLayout>
+
+        <Label Text="Date of order:"
+               TextColor="Black"
+                FontAttributes="Bold"
+               FontSize="20"/>
+        <DatePicker x:Name="startDatePicker"
+                    Margin="30, 0, 0, 30"
+                    DateSelected="startDatePicker_DateSelected" />
+
+        <Label Text="T-shirt color"
+               TextColor="Black"
+                FontAttributes="Bold"
+               FontSize="20"/>
+        <Entry Text="{Binding T-shirtColor }" />
+
+        <Label Text="Shipping address"
+               TextColor="Black"
+                FontAttributes="Bold"
+               FontSize="20"/>
+        <Entry Text="{Binding ShippingAddress}"/>
+
+        <Button Text="Save"
+                FontSize="20"
+                TextColor="Black"
+                BackgroundColor="Blue"
+                Clicked="Save_Clicked"/>
+
+        <Button Text="Cancel"
+                TextColor="Black"
+                FontSize="20"
+                BackgroundColor="Blue"
+                Clicked="Cancel_Clicked"/>
+
+    </StackLayout>
+
+</ContentPage>
