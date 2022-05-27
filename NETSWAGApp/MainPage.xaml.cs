@@ -11,31 +11,38 @@ using Xamarin.Forms;
 namespace NETSWAGApp
 {
     public partial class MainPage : ContentPage
-    {
-        private object orderingItem;
+    { 
 
         public MainPage()
         {
             InitializeComponent();
         }
 
-        async void Save_ClickedAsync(object sender, EventArgs e)
+        protected override async void OnAppearing()
         {
-            var OrderingItem = (OrderingItem)BindingContext;
+            base.OnAppearing();
+
             OrderingItemDatabase database = await OrderingItemDatabase.Instance;
-            await database.SaveItemAsync(orderingItem);
-            await Navigation.PopAsync();
-
+            listView.ItemsSource = await database.GetItemsAsync();
         }
 
-         async void Cancel_ClickedAsync(object sender, EventArgs e)
+        async void OnItemAdded(object sender, EventArgs e)
         {
-            await Navigation.PopAsync();
+            await Navigation.PushAsync(new MainPage
+            {
+                BindingContext = new OrderingItem()
+            });
         }
 
-        private void startDatePicker_DateSelected(object sender, DateChangedEventArgs e)
+        async void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-
+            if (e.SelectedItem != null)
+            {
+                await Navigation.PushAsync(new MainPage
+                {
+                    BindingContext = e.SelectedItem as OrderingItem
+                });
+            }
         }
     }
 }

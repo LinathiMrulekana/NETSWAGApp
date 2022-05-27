@@ -19,7 +19,9 @@ namespace NETSWAGApp.data
                 return instance;
             });
 
-            public OrderingItemDatabase()
+        public OrderingItem BindingContext { get; internal set; }
+
+        public OrderingItemDatabase()
             {
                 Database = new SQLiteAsyncConnection(Constant.DatabasePath, Constant.Flags);
             }
