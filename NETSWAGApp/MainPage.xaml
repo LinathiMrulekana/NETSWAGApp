@@ -2,37 +2,137 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="NETSWAGApp.MainPage"
-             Title="{Binding Name}">
+             Title="{Binding Name}"
+             BackgroundImageSource="https://wallpapercave.com/wp/wp5353971.jpg">
+
+    <StackLayout Margin="20"
+                 VerticalOptions="StartAndExpand">
 
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="+" Clicked="OnItemAdded">
-            <ToolbarItem.IconImageSource>
-                <OnPlatform x:TypeArguments="ImageSource">
-                    <On Platform="Android, UWP"
-                        Value="plus.png" />
-                </OnPlatform>
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-    </ContentPage.ToolbarItems>
-    <ListView x:Name="listView"
-              Margin="20"
-              ItemSelected="OnListItemSelected">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ViewCell>
-                    <StackLayout Margin="20,0,0,0"
-                                 Orientation="Horizontal"
-                                 HorizontalOptions="FillAndExpand">
-                        <Label Text="{Binding Name}"
-                               VerticalTextAlignment="Center"
-                               HorizontalOptions="StartAndExpand" />
-                        <Image Source="check.png"
-                               HorizontalOptions="End"
-                               IsVisible="{Binding Done}" />
-                    </StackLayout>
-                </ViewCell>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+        <Label Text=".NET SWAG ordering App"
+               TextColor="WhiteSmoke"
+               FontAttributes="Bold"
+               FontSize="30"/>
+
+
+        <Label Text="Name"
+               TextColor="Black"
+               FontAttributes="Bold"
+               FontSize="15"/>
+        <Entry Text="{Binding CurrentOrderItem.Name}" />
+
+        <Label Text="Gender" 
+               TextColor="Black"
+               FontAttributes="Bold"
+               FontSize="15"/>
+        <Entry Text="{Binding CurrentOrderItem.Gender}" />
+
+        <Label Text="T-Shirt Size"
+               TextColor="black"
+               FontAttributes="Bold"
+               FontSize="15"/>
+        
+        <StackLayout Orientation="Horizontal">
+            <CheckBox x:Name="checkbox" IsChecked="{Binding SmallSize}"/>
+            <Label Text="Small"
+                   TextColor="WhiteSmoke"
+                   FontAttributes="Bold">
+                <Label.Triggers>
+                    <DataTrigger  TargetType="Label"
+                                  Binding="{Binding Source={x:Reference checkbox}, Path= IsChecked}"
+                                  Value="true">
+                        <Setter Property="FontAttributes"
+                                Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <CheckBox x:Name="checkboxm" IsChecked="{Binding MediumSize}"/>
+            <Label Text="Medium"
+                   TextColor="WhiteSmoke"
+                   FontAttributes="Bold">
+                <Label.Triggers>
+                    <DataTrigger  TargetType="Label"
+                              Binding="{Binding Source={x:Reference checkboxm}, Path= IsChecked}"
+                              Value="true">
+                        <Setter Property="FontAttributes"
+                            Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <CheckBox x:Name="checkboxl" IsChecked="{Binding LargeSize}"/>
+            <Label Text="Large"
+                   TextColor="WhiteSmoke"
+                   FontAttributes="Bold">
+                <Label.Triggers>
+                    <DataTrigger  TargetType="Label"
+                              Binding="{Binding Source={x:Reference checkboxl}, Path= IsChecked}"
+                              Value="true">
+                        <Setter Property="FontAttributes"
+                            Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+
+            <CheckBox x:Name="checkboxXL" IsChecked="{Binding XLargeSize}"/>
+            <Label Text="XLarge"
+                   TextColor="WhiteSmoke"
+                   FontAttributes="Bold">
+                <Label.Triggers>
+                    <DataTrigger  TargetType="Label"
+                                  Binding="{Binding Source={x:Reference checkboxXL},
+                                  Path= IsChecked}"
+                                  Value="true">
+                        <Setter Property="FontAttributes"
+                                Value="Bold"/>
+                    </DataTrigger>
+                </Label.Triggers>
+            </Label>
+        </StackLayout>
+
+
+        <Label Text="Date of order:"
+               TextColor="Black"
+                FontAttributes="Bold"
+               FontSize="15"/>
+        <DatePicker x:Name="startDatePicker"
+                    Margin="30, 0, 0, 30"
+                    DateSelected="startDatePicker_DateSelected" />
+
+        <Label Text="T-shirt color"
+               TextColor="Black"
+                FontAttributes="Bold"
+               FontSize="15"/>
+        <Entry Text="{Binding CurrentOrderItem.T-shirtColor }" />
+
+        <Label Text="Shipping address"
+               TextColor="Black"
+                FontAttributes="Bold"
+               FontSize="15"/>
+        <Entry Text="{Binding CurrentOrderItem.ShippingAddress}"/>
+
+           <Label Text="Done"
+                  FontSize="15"
+                  FontAttributes="Bold"
+                  TextColor="Black"/>
+            <Switch IsToggled="{Binding Done}"/>
+
+            <Button Text="Save"
+                FontSize="20"
+                TextColor="Black"
+                BackgroundColor="Blue"
+                Clicked="Save_ClickedAsync"/>
+
+        <Button Text="Delete"
+                TextColor="Black"
+                BackgroundColor="Blue"
+                FontSize="15"
+                FontAttributes="Bold"
+                Clicked="Delete_Clicked"/>
+
+            
+
+    </StackLayout>
+
 </ContentPage>

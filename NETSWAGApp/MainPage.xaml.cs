@@ -11,38 +11,62 @@ using Xamarin.Forms;
 namespace NETSWAGApp
 {
     public partial class MainPage : ContentPage
-    { 
+    {
+        public bool SmallSize { get; set; }
+        public bool MediumSize { get; set; }
+        public bool LargeSize { get; set; }
+        public bool XLargeSize { get; set; }
+
+        public OrderingItem CurrentOrderItem { get; set; }
+
 
         public MainPage()
         {
             InitializeComponent();
+
+            CurrentOrderItem = new OrderingItem();
+            BindingContext = this;
         }
 
-        protected override async void OnAppearing()
+        async void Save_ClickedAsync(object sender, EventArgs e)
         {
-            base.OnAppearing();
+            var thisPage = (MainPage)BindingContext;
+            var orderingItem = thisPage.CurrentOrderItem;
+
+
+            if (thisPage.SmallSize)
+                orderingItem.TShirtSize = "S";
+            else
+            if (thisPage.MediumSize)
+                orderingItem.TShirtSize = "M";
+            else
+            if (thisPage.LargeSize)
+                orderingItem.TShirtSize = "L";
+            else
+            if (thisPage.XLargeSize)
+                orderingItem.TShirtSize = "XL";
+
 
             OrderingItemDatabase database = await OrderingItemDatabase.Instance;
-            listView.ItemsSource = await database.GetItemsAsync();
+            await database.SaveItemAsync(orderingItem);
+            await Navigation.PushAsync(new InfoPage());
+
         }
 
-        async void OnItemAdded(object sender, EventArgs e)
+       
+
+        private void startDatePicker_DateSelected(object sender, DateChangedEventArgs e)
         {
-            await Navigation.PushAsync(new MainPage
-            {
-                BindingContext = new OrderingItem()
-            });
+
         }
 
-        async void OnListItemSelected(object sender, SelectedItemChangedEventArgs e)
+        async void Delete_Clicked(object sender, EventArgs e)
         {
-            if (e.SelectedItem != null)
-            {
-                await Navigation.PushAsync(new MainPage
-                {
-                    BindingContext = e.SelectedItem as OrderingItem
-                });
-            }
+            var thisPage = (MainPage)BindingContext;
+            var orderingItem = thisPage.CurrentOrderItem;
+            OrderingItemDatabase database = await OrderingItemDatabase.Instance;
+            await database.DeleteItemAsync(orderingItem);
+            await Navigation.PushAsync(new InfoPage());
         }
     }
 }

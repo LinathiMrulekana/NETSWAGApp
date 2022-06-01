@@ -12,24 +12,19 @@ namespace NETSWAGApp.data
     {
             static SQLite.SQLiteAsyncConnection Database;
 
-            public static readonly AsyncLazy<OrderingItemDatabase> Instance = new AsyncLazy<OrderingItemDatabase>(async () =>
-            {
-                var instance = new OrderingItemDatabase();
-                CreateTableResult result = await Database.CreateTableAsync<OrderingItem>();
-                return instance;
-            });
+        public static readonly AsyncLazy<OrderingItemDatabase> instance = new AsyncLazy<OrderingItemDatabase>(async () =>
+             {
+                 var instance = new OrderingItemDatabase();
+                 CreateTableResult result = await Database.CreateTableAsync<OrderingItem>();
+                 return instance;
+             });
 
-        public OrderingItem BindingContext { get; internal set; }
+        public static AsyncLazy<OrderingItemDatabase> Instance => instance;
 
         public OrderingItemDatabase()
             {
                 Database = new SQLiteAsyncConnection(Constant.DatabasePath, Constant.Flags);
             }
-
-        internal Task SaveItemAsync(object orderingItem)
-        {
-            throw new NotImplementedException();
-        }
 
         public Task<List<OrderingItem>> GetItemsAsync()
             {
@@ -38,7 +33,7 @@ namespace NETSWAGApp.data
 
             public Task<List<OrderingItem>> GetItemsNotDoneAsync()
             {
-                return Database.QueryAsync<OrderingItem>("SELECT * FROM [TodoItem] WHERE [Done] = 0");
+                return Database.QueryAsync<OrderingItem>("SELECT * FROM [OrderingItem] WHERE [Done] = 0");
             }
 
             public Task<OrderingItem> GetItemAsync(int id)

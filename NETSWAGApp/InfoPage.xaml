@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="NETSWAGApp.InfoPage"
+             Title="{Binding Name}"
+             BackgroundImageSource="https://cutewallpaper.org/21/nice-background-picture/Nice-Background-Images-wallpaper-collections-at-graciaviva.cat.png">
+
+    <ListView x:Name="Listview" 
+              ItemsSource="{Binding OrderingItems}"
+              ItemSelected="OnListItemSelected" >
+
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <ViewCell>
+                    <StackLayout Margin="20,0,0,0"
+                                 Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand">
+                        <Label Text="{Binding Name}"
+                               TextColor="Black"
+                               FontSize="20"
+                               FontAttributes="Bold"
+                               VerticalTextAlignment="Center"
+                               HorizontalOptions="StartAndExpand" />
+                    </StackLayout>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+        
+    </ListView>
+</ContentPage>
